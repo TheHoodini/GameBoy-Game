@@ -6,22 +6,34 @@ public class DuckController : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Animator _animator;
-    [Header("Settings")]
+
+    [Header("Movement Settings")]
     [SerializeField] private float jumpForce = 7f;
+    [SerializeField] private float jumpCutMultiplier = 0.5f;
+
+    [Header("Gravity Settings")]
+    [SerializeField] private float gravity = 20f;
 
     private Rigidbody2D rb;
     private bool isGrounded;
 
+    // 1 = normal gravity, -1 = upside-down gravity
+    private int gravityDirection = 1;
+
     private void Awake()
     {
-        //_animator.SetTrigger("Start");
-        //_animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        rb.gravityScale = 0f;
     }
 
-    public void Update()
+    private void Update()
     {
         _animator.SetBool("IsGrounded", isGrounded);
+    }
+
+    private void FixedUpdate()
+    {
+        rb.linearVelocity += Vector2.down * gravity * gravityDirection * Time.fixedDeltaTime;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -31,14 +43,28 @@ public class DuckController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.performed && isGrounded)
+        if (context.started && isGrounded)
         {
             _animator.SetTrigger("Jump");
-            StartCoroutine(WaitSeconds(0.3f)); 
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+
+            rb.linearVelocity = new Vector2(
+                rb.linearVelocity.x,
+                jumpForce * gravityDirection
+            );
+
             isGrounded = false;
         }
-        
+
+        if (context.canceled)
+        {
+            if (rb.linearVelocity.y * gravityDirection > 0)
+            {
+                rb.linearVelocity = new Vector2(
+                    rb.linearVelocity.x,
+                    rb.linearVelocity.y * jumpCutMultiplier
+                );
+            }
+        }
     }
 
     public void OnSlide(InputAction.CallbackContext context)
@@ -53,13 +79,24 @@ public class DuckController : MonoBehaviour
     {
         if (context.performed)
         {
+            Debug.Log("Trick");
             _animator.SetTrigger("Trick");
         }
+    }
+
+    public void OnGravitySwitch(InputAction.CallbackContext context)
+    {
+        if (!context.performed || !isGrounded) return;
+
+        gravityDirection *= -1;
+
+        Vector3 scale = transform.localScale;
+        scale.y *= -1;
+        transform.localScale = scale;
     }
 
     IEnumerator WaitSeconds(float seconds)
     {
         yield return new WaitForSeconds(seconds);
     }
-
 }

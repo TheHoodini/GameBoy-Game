@@ -606,7 +606,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9171823606852743473, guid: 40a77c5f2b07a9a408662b90d0b8ec58, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.804211
+      value: -3.3042107
       objectReference: {fileID: 0}
     - target: {fileID: 9171823606852743473, guid: 40a77c5f2b07a9a408662b90d0b8ec58, type: 3}
       propertyPath: m_LocalPosition.z
@@ -674,7 +674,7 @@ Transform:
   m_GameObject: {fileID: 1759336681}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4, y: -1.5, z: -0.5}
+  m_LocalPosition: {x: -4, y: -2.2, z: -0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -763,7 +763,19 @@ MonoBehaviour:
     m_ActionId: d077a09d-2eaa-433a-bfad-1f881966636d
     m_ActionName: 'Duck/Trick[/Keyboard/s]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1759336684}
+        m_TargetAssemblyTypeName: DuckController, Assembly-CSharp
+        m_MethodName: OnGravitySwitch
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 5e464e2f-7616-476f-b221-433e0818a2ed
     m_ActionName: 'Duck/SwGravity[/Keyboard/upArrow]'
   - m_PersistentCalls:
@@ -860,7 +872,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DuckController
   _animator: {fileID: 1149847955}
-  jumpForce: 7
+  jumpForce: 10
+  jumpCutMultiplier: 0.5
+  gravity: 20
 --- !u!50 &1759336685
 Rigidbody2D:
   serializedVersion: 5
@@ -876,7 +890,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 1.5
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -976,7 +990,7 @@ Transform:
   m_GameObject: {fileID: 1948198206}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.10284, y: -2.83611, z: -0.25}
+  m_LocalPosition: {x: 7.10284, y: -3.33611, z: -0.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
