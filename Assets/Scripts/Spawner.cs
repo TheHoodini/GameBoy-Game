@@ -16,20 +16,23 @@ public class Spawner : MonoBehaviour
 
         if (timer >= spawnInterval)
         {
-            SpawnPrefab();
+            //SpawnPrefab();
             timer = 0f;
         }
     }
 
-    void SpawnPrefab()
+    public void SpawnPrefab(float offset = 0)
     {
         if (prefabs.Length == 0) return;
 
         int randomIndex = Random.Range(0, prefabs.Length);
 
+        Vector3 newPos = transform.position;
+        newPos.x += offset;
+
         Instantiate(
             prefabs[randomIndex],
-            transform.position,
+            newPos,
             transform.rotation
         );
     }
