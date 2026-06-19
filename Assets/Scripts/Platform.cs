@@ -27,7 +27,7 @@ public class Platform : MonoBehaviour
             _spawner.SpawnPrefab(spawnOffset);
             _hasNextSpawned = true;
         }
-        if (transform.position.x < -20)
+        if (transform.position.x < -30)
         {
             Destroy(gameObject);
         }

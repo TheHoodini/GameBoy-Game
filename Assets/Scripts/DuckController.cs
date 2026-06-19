@@ -113,7 +113,9 @@ public class DuckController : MonoBehaviour
         {
             boxCollider.enabled = true;
             isSliding = false;
+            boxCollider.enabled = true;
         }
+
     }
 
     public void OnTrick(InputAction.CallbackContext context)

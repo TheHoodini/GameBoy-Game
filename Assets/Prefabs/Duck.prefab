@@ -57,6 +57,7 @@ MonoBehaviour:
   jumpCutMultiplier: 0.5
   gravity: 20
   IsTricking: 0
+  CanMove: 1
 --- !u!114 &4773928010838267208
 MonoBehaviour:
   m_ObjectHideFlags: 0
